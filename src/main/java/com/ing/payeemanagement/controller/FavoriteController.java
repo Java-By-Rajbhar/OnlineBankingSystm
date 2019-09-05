@@ -30,19 +30,27 @@ import com.ing.payeemanagement.service.FavoriteService;
 public class FavoriteController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoriteController.class);
-	
+
 	@Autowired
 	private FavoriteService favoriteService;
 
-	@GetMapping("/accounts/{customerId}")
-	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(@PathVariable int customerId, @RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
-				
-		LOGGER.info("FavoriteController :: getAllFavoriteAccounts --");				
-		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(customerId,pageNo, pageSize);
+	/**
+	 * This method is use to get all the favorite accounts
+	 * 
+	 * @PathVariable customerId,not null
+	 * @return ResponseEntity<List<FavoriteResponseDTO>>
+	 */
 
+	@GetMapping("/accounts/{customerId}")
+	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(@PathVariable int customerId,
+			@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
+
+		LOGGER.info("inside getAllFavoriteAccounts method of FavoriteController class");
+		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(customerId, pageNo, pageSize);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
+	
 	@PostMapping("/accounts")
 	public ResponseEntity<ResponseDto> addFavorite(@Valid @RequestBody FavoriteDto favoriteDto) {
 

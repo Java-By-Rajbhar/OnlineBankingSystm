@@ -29,18 +29,18 @@ import com.ing.payeemanagement.repository.FavoriteRepository;
  * @author Laxman
  *
  */
+
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
 
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoriteServiceImpl.class);
-	
+
 	@Value("${max.favorite}")
 	private int maxFavorite;
-	
+
 	@Value("${expiry.favorite}")
 	private long expiryFavorite;
-	
+
 	@Autowired
 	private FavoriteRepository favoriteRepository;
 
@@ -52,12 +52,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 		Customer customer = customerRepository.findByCustomerId(customerId);
 
 		Pageable paging = PageRequest.of(pageNo, pageSize);
-		Page<Favorite> pagedResult = favoriteRepository.findAll(paging);
+
+		Page<Favorite> pagedResult1 = favoriteRepository.findAll(paging);
+
+		List<Favorite> pagedResult = pagedResult1.getContent();
 
 		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
+		if (customer != null) {
 
-		if (customer.getCustomerId() == customerId) {
-			if (pagedResult.hasContent()) {
+			if (customer.getCustomerId() == customerId) {
+
 				for (Favorite favorite : pagedResult) {
 					if (favorite.getStatus() == 1) {
 						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
@@ -71,19 +75,17 @@ public class FavoriteServiceImpl implements FavoriteService {
 				}
 			}
 		}
-		else{
-			throw new RecordNotFoundException("Record Not Found");
-		}
+	
 
-		return pagedResultdto;
+	else
+	{
+		throw new RecordNotFoundException("Record Not Found");
 	}
 
-	/**
-	 * @author Laxman
-	 * 
-	 * param FavoriteDto favoriteDto
-	 * return ResponseDto
-	 */
+	return pagedResultdto;
+	}
+
+	
 	@Override
 	public ResponseDto addFavorite(FavoriteDto favoriteDto) {
 

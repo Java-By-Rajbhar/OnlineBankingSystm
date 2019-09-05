@@ -23,6 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	SmsService smsService;
+	
     /**
      * This method is use to login for customer
      * @param customerRequestdto ,not null
@@ -41,8 +48,10 @@ public class CustomerServiceImpl implements CustomerService {
 			loginResponse.setMessage("Login successfull");
 			loginResponse.setStatus("success");
 			loginResponse.setStatusCode(HttpStatus.OK.value());
-			
+			mailService.sendOTPEmail(customer.getEmail(), loginResponse.getMessage());
+			smsService.sms("Logged in Successfully");
 			return loginResponse; 
+			
 		}
 		else
 		{
