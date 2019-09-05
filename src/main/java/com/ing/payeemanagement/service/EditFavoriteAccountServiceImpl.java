@@ -41,6 +41,7 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 		Favorite favorite=new Favorite();
 		if(favoriteRepo.isPresent())
 		{
+			
 			favorite=favoriteRepo.get();
 			favorite.setName(favoriteRequestDto.getAccountName());
 			favorite.setBank(favoriteRequestDto.getBankName());

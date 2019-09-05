@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ing.payeemanagement.dto.FavoriteDto;
-import com.ing.payeemanagement.dto.FavoriteRequestDto;
 import com.ing.payeemanagement.dto.FavoriteResponseDTO;
 import com.ing.payeemanagement.dto.ResponseDto;
 import com.ing.payeemanagement.service.FavoriteService;
