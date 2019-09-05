@@ -25,7 +25,6 @@ import lombok.Setter;
 @Table
 public class Customer {
 	
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

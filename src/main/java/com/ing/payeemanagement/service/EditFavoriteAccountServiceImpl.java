@@ -3,9 +3,12 @@ package com.ing.payeemanagement.service;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ing.payeemanagement.controller.CustomerLoginController;
 import com.ing.payeemanagement.dto.DeletedResponseDto;
 import com.ing.payeemanagement.dto.FavoriteEditResponseDto;
 import com.ing.payeemanagement.dto.FavoriteRequestDto;
@@ -17,6 +20,8 @@ import com.ing.payeemanagement.repository.FavoriteRepository;
 @Service
 public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountService {
 
+	private static final Logger LOGGER  = LoggerFactory.getLogger(EditFavoriteAccountServiceImpl.class);
+	
 	
 	@Autowired
 	private FavoriteRepository favoriteRepository;
@@ -29,7 +34,7 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 	@Override
 	public FavoriteEditResponseDto edit(FavoriteRequestDto favoriteRequestDto) {
 
-		
+		LOGGER.info("EditFavoriteAccountServiceImpl edit()");
 		FavoriteEditResponseDto favoriteResponseDto=new FavoriteEditResponseDto();
 		Optional<Favorite> favoriteRepo=favoriteRepository.findById(favoriteRequestDto.getAccountId());
 		Favorite favorite=new Favorite();
@@ -61,6 +66,7 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 	@Override
 	public DeletedResponseDto delete(int accountId) {
 		
+		LOGGER.info("EditFavoriteAccountServiceImpl delete()");
 		DeletedResponseDto deletedResponseDto=new DeletedResponseDto();
 		Optional<Favorite> favoriteRepo=favoriteRepository.findById(accountId);
 		Favorite favorite=new Favorite();
