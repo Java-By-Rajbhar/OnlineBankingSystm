@@ -32,26 +32,29 @@ public class FavoriteServiceImpl implements FavoriteService {
 		Customer customer = customerRepository.findByCustomerId(customerId);
 
 		Pageable paging = PageRequest.of(pageNo, pageSize);
-		Page<Favorite> pagedResult = repository.findAll(paging);
+		Page<Favorite> pagedResult1 = repository.findAll(paging);
+		
+		List<Favorite> pagedResult = pagedResult1.getContent();
+		
 		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
+		if (customer!=null) {
 
 		if (customer.getCustomerId() == customerId) {
 
-			if (pagedResult.hasContent()) {
-				for (Favorite favorite : pagedResult) {
-					if (favorite.getStatus() == 1) {
-						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
-						favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
-						favoriteResponseDTO.setAccountName(favorite.getName());
-						favoriteResponseDTO.setBankName(favorite.getBank());
-						favoriteResponseDTO.setIban(favorite.getIban());
-						pagedResultdto.add(favoriteResponseDTO);
-					}
-
+			for (Favorite favorite : pagedResult) {
+				if (favorite.getStatus() == 1) {
+					FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
+					favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
+					favoriteResponseDTO.setAccountName(favorite.getName());
+					favoriteResponseDTO.setBankName(favorite.getBank());
+					favoriteResponseDTO.setIban(favorite.getIban());
+					pagedResultdto.add(favoriteResponseDTO);
 				}
 			}
 		}
-		else{
+		}
+		
+		else {
 			throw new RecordNotFoundException("Record Not Found");
 		}
 

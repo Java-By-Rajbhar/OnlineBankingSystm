@@ -7,11 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FavoriteResponseDTO {
-
-	private int accountId;
-	private String accountName;
-	private String iban;
-	private String bankName;
+public class PaginationRequestDTO {
+	private int customerId;
+	private int pageNo;
+	private int pageSize;
+	
 
 }
