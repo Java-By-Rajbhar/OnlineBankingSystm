@@ -36,9 +36,10 @@ public class FavoriteServiceTest {
 	
 	@Before
 	public void setUp() {
-		favoriteDto.setBank("Bank of Ujjala");
+		favoriteDto.setBankName("Bank of Ujjala");
 		favoriteDto.setCustomerId(101);
 		favoriteDto.setIban("SP201128192292922890");
+		favoriteDto.setAccountName("Laxman verma");
 		
 		favorite.setBank("Bank of Ujjala");
 		favorite.setCreatedDate(LocalDateTime.now());

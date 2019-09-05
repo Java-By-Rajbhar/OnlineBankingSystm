@@ -17,6 +17,7 @@ public class FavoriteRequestDto {
 	private String accountName;
 	private String iban;
 	private String bankName;
+	private Integer customerId;
 	
 	
 }

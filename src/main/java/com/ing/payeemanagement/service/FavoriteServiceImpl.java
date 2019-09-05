@@ -43,6 +43,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 	@Autowired
 	private FavoriteRepository favoriteRepository;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -60,10 +63,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
 		if (customer != null) {
 
-			if (customer.getCustomerId() == customerId) {
 
 				for (Favorite favorite : pagedResult) {
-					if (favorite.getStatus() == 1) {
+					if (favorite.getStatus() == 1 && favorite.getCustomerId()==customerId) {
 						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
 						favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
 						favoriteResponseDTO.setAccountName(favorite.getName());
@@ -72,7 +74,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 						pagedResultdto.add(favoriteResponseDTO);
 					}
 
-				}
 			}
 		}
 	
@@ -97,9 +98,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- if condition ");
 		if (favorites.isEmpty() || favorites.size() < maxFavorite) {
 			
+			Customer customer = customerRepository.findByCustomerId(favoriteDto.getCustomerId());
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- in condition");
 			Favorite favorite = new Favorite();
 			BeanUtils.copyProperties(favoriteDto, favorite);
+			favorite.setName(favoriteDto.getAccountName());
+			favorite.setBank(favoriteDto.getBankName());
 			favorite.setStatus(1);
 			favorite.setCreatedDate(LocalDateTime.now());
 			LocalDate expiryDate = LocalDate.now().plusYears(expiryFavorite);
@@ -108,6 +112,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 			responseDto.setMessage("Favorite Added successfully.");
 			responseDto.setStatus("success");
 			responseDto.setStatusCode(201);
+			
 		} else {
 			
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- throwing maxException");
