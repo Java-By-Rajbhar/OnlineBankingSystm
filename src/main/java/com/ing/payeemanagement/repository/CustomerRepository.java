@@ -12,4 +12,5 @@ import com.ing.payeemanagement.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
+	public Customer findByCustomerId(int customerId);
 }

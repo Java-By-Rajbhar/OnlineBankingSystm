@@ -1,10 +1,13 @@
 package com.ing.payeemanagement.service;
 
+import com.ing.payeemanagement.dto.DeletedResponseDto;
+import com.ing.payeemanagement.dto.FavoriteEditResponseDto;
 import com.ing.payeemanagement.dto.FavoriteRequestDto;
-import com.ing.payeemanagement.dto.FavoriteResponseDto;
 
 public interface EditFavoriteAccountService {
 
-	public FavoriteResponseDto edit(FavoriteRequestDto favoriteResponseDto);
+	public FavoriteEditResponseDto edit(FavoriteRequestDto favoriteResponseDto);
+	
+	public DeletedResponseDto delete(int accountId);
 	
 }

@@ -22,15 +22,12 @@ public class Favorite {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int favoriteId;
-	private int customerId;
 	private String name;
 	private String iban;
+	private String bank;
 	private int status;
 	private LocalDate createdDate;
 	private LocalDate expiryDate;
-	private String bank;
-	
+	private int customerId;
+
 }
-
-
-

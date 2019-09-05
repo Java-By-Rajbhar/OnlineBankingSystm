@@ -9,13 +9,14 @@ import lombok.Setter;
  * @author Sushil
  *
  */
-
-
 @Setter
 @Getter
 @NoArgsConstructor
-public class CustomerRequestdto {
+public class CustomerLoginResponse {
 	
-	private int customerId;
+	private String message;
+	private int statusCode;
+	private String status;
+	private String customerName;
 
 }
