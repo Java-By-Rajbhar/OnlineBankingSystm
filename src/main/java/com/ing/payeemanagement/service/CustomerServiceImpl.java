@@ -36,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if(customer!=null)
 		{
 			CustomerLoginResponse loginResponse  = new CustomerLoginResponse();
+			loginResponse.setCustomerId(customer.getCustomerId());
 			loginResponse.setCustomerName(customer.getCustomerName());
 			loginResponse.setMessage("Login successfull");
 			loginResponse.setStatus("success");
