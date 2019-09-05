@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FavoriteResponseDTO {
+public class FavoriteResponseDto {
 
 	private int accountId;
 	private String accountName;

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ing.payeemanagement.dto.FavoriteDto;
+import com.ing.payeemanagement.dto.FavoriteRequestDto;
 import com.ing.payeemanagement.dto.FavoriteResponseDTO;
 import com.ing.payeemanagement.dto.ResponseDto;
 import com.ing.payeemanagement.service.FavoriteService;
@@ -42,11 +43,11 @@ public class FavoriteController {
 	 */
 
 	@GetMapping("/accounts/{customerId}")
-	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(@PathVariable int customerId,
+	public ResponseEntity<List<FavoriteRequestDto>> getAllFavoriteAccounts(@PathVariable int customerId,
 			@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
 
 		LOGGER.info("inside getAllFavoriteAccounts method of FavoriteController class");
-		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(customerId, pageNo, pageSize);
+		List<FavoriteRequestDto> list = favoriteService.getAllFavoriteAccounts(customerId, pageNo, pageSize);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
