@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ing.payeemanagement.dto.FavoriteDto;
-import com.ing.payeemanagement.dto.FavoriteRequestDto;
 import com.ing.payeemanagement.dto.FavoriteResponseDTO;
 import com.ing.payeemanagement.dto.ResponseDto;
 import com.ing.payeemanagement.entity.Customer;
@@ -54,16 +53,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 		Pageable paging = PageRequest.of(pageNo, pageSize);
 
-		Page<Favorite> pagedResult1 = favoriteRepository.findAll(paging);
-
-		List<Favorite> pagedResult = pagedResult1.getContent();
+		Page<Favorite> pageResult = favoriteRepository.findAll(paging);
+		List<Favorite> pagedResult = pageResult.getContent();
 
 		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
 		if (customer != null) {
 
 			if (customer.getCustomerId() == customerId) {
-				
-				pagedResult.forEach(favorite->{
+
+				pagedResult.forEach(favorite -> {
 					if (favorite.getStatus() == 1) {
 						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
 						favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
@@ -74,30 +72,27 @@ public class FavoriteServiceImpl implements FavoriteService {
 					}
 
 				});
+
 			}
 		}
-	
 
-	else
-	{
-		throw new RecordNotFoundException("Record Not Found");
+		else {
+			throw new RecordNotFoundException("Record Not Found");
+
+		}
+		return pagedResultdto;
 	}
 
-	return pagedResultdto;
-	}
-
-	
-	@Override
 	public ResponseDto addFavorite(FavoriteDto favoriteDto) {
 
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- START");
-		
+
 		List<Favorite> favorites = favoriteRepository.findByCustomerId(favoriteDto.getCustomerId());
 		ResponseDto responseDto = new ResponseDto();
-		
+
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- if condition ");
 		if (favorites.isEmpty() || favorites.size() < maxFavorite) {
-			
+
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- in condition");
 			Favorite favorite = new Favorite();
 			BeanUtils.copyProperties(favoriteDto, favorite);
@@ -110,9 +105,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 			responseDto.setStatus("success");
 			responseDto.setStatusCode(201);
 		} else {
-			
+
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- throwing maxException");
-			throw new MaxFavoriteAccountException("Allowed only "+maxFavorite+" favorite accounts.");
+			throw new MaxFavoriteAccountException("Allowed only " + maxFavorite + " favorite accounts.");
 		}
 
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- END");
