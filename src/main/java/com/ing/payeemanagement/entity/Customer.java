@@ -1,6 +1,7 @@
 package com.ing.payeemanagement.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Table
 public class Customer {
 	
+	@Id
 	private int customerId;
 	private String customerName;
 	private String email;

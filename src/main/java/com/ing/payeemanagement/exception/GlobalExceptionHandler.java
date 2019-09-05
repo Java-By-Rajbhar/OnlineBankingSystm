@@ -20,7 +20,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	{
 		ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "fail");
 		
-		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(RecordNotFoundException.class)
+	public ResponseEntity<ErrorResponse> RecordNotFoundExceptionHandler(RecordNotFoundException ex)
+	{
+		ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "fail");
+		
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 	
 
