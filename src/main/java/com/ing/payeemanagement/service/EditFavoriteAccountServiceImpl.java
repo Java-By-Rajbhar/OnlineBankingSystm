@@ -28,8 +28,9 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 	
 	/**
 	 * This method take the parameter from and update the record of favorite account
-	 * @param intput FavoriteRequestDto,input from user
-	 * @param output FavoriteResponseDto ,success for failure
+	 * @param intput FavoriteRequestDto,not null
+	 * @return FavoriteEditResponseDto,not null
+	 * @exception RecordNotFoundException if recorn not found
 	 */
 	@Override
 	public FavoriteEditResponseDto edit(FavoriteRequestDto favoriteRequestDto) {
@@ -57,11 +58,11 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 		return favoriteResponseDto;
 	}
 
-
 	/**
-	 * This method take the parameter from and update the record of favorite account
-	 * @param intput integer,input from user
-	 * @param output FavoriteResponseDto ,success for failure
+	 * This method take the parameter from and delete the record of favorite account
+	 * @param intput integer
+	 * @return DeletedResponseDto,not null
+	 * @exception RecordNotFoundException if recorn not found
 	 */
 	@Override
 	public DeletedResponseDto delete(int accountId) {
