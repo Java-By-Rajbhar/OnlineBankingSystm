@@ -74,10 +74,10 @@ public class FavoriteControllerTest {
 	{
 		
 		FavoriteDto favoriteDto=new FavoriteDto();
-		favoriteDto.setBank("Nairobi");
+		favoriteDto.setBankName("Nairobi");
 		favoriteDto.setCustomerId(1);
 		favoriteDto.setIban("ES211234567878904567");
-		favoriteDto.setName("Professor");
+		favoriteDto.setAccountName("Professor");
 		
 		ResponseDto response =new ResponseDto();
 		response.setMessage("Added Succesfully");

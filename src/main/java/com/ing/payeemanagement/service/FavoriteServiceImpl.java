@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ing.payeemanagement.dto.EmailDto;
 import com.ing.payeemanagement.dto.FavoriteDto;
 import com.ing.payeemanagement.dto.FavoriteResponseDTO;
 import com.ing.payeemanagement.dto.ResponseDto;
@@ -106,6 +107,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 			responseDto.setStatus("success");
 			responseDto.setStatusCode(201);
 
+			EmailDto emailDto = new EmailDto();
+			emailDto.setEmailId(customer.getEmail());
+			emailDto.setSubject("Favorite added to Account");
+			emailDto.setTextBody("Dear Customer, Favorite "+favorite.getName()+ " has been added.");
+			mailService.sendEmail(emailDto);
 		} else {
 
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- throwing maxException");
