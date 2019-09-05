@@ -47,6 +47,8 @@ public class FavoriteServiceImplTest {
 		requestdto.setIban("ES21123478974563");
 		requestdto.setFavoriteId(1);
 		requestdto.setName("Professor");
+		requestdto.setStatus(1);
+		list.add(requestdto);
 
 		Customer customer = new Customer();
 		customer.setCustomerName("Professor");

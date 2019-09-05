@@ -30,7 +30,7 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 	 * This method take the parameter from and update the record of favorite account
 	 * @param intput FavoriteRequestDto,not null
 	 * @return FavoriteEditResponseDto,not null
-	 * @exception RecordNotFoundException if recorn not found
+	 * @exception RecordNotFoundException if record not found
 	 */
 	@Override
 	public FavoriteEditResponseDto edit(FavoriteRequestDto favoriteRequestDto) {
@@ -41,6 +41,7 @@ public class EditFavoriteAccountServiceImpl implements EditFavoriteAccountServic
 		Favorite favorite=new Favorite();
 		if(favoriteRepo.isPresent())
 		{
+			
 			favorite=favoriteRepo.get();
 			favorite.setName(favoriteRequestDto.getAccountName());
 			favorite.setBank(favoriteRequestDto.getBankName());

@@ -43,7 +43,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 	@Autowired
 	private FavoriteRepository favoriteRepository;
-	
+
 	@Autowired
 	private MailService mailService;
 
@@ -56,48 +56,41 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 		Pageable paging = PageRequest.of(pageNo, pageSize);
 
-		Page<Favorite> pagedResult1 = favoriteRepository.findAll(paging);
-
-		List<Favorite> pagedResult = pagedResult1.getContent();
+		Page<Favorite> pageResult = favoriteRepository.findAll(paging);
+		List<Favorite> pagedResult = pageResult.getContent();
 
 		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
 		if (customer != null) {
 
-
-				for (Favorite favorite : pagedResult) {
-					if (favorite.getStatus() == 1 && favorite.getCustomerId()==customerId) {
-						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
-						favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
-						favoriteResponseDTO.setAccountName(favorite.getName());
-						favoriteResponseDTO.setBankName(favorite.getBank());
-						favoriteResponseDTO.setIban(favorite.getIban());
-						pagedResultdto.add(favoriteResponseDTO);
-					}
-
-			}
+			pagedResult.forEach(favorite -> {
+				if (favorite.getStatus() == 1 && favorite.getCustomerId() == customerId) {
+					FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
+					favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
+					favoriteResponseDTO.setAccountName(favorite.getName());
+					favoriteResponseDTO.setBankName(favorite.getBank());
+					favoriteResponseDTO.setIban(favorite.getIban());
+					pagedResultdto.add(favoriteResponseDTO);
+				}
+			});
 		}
-	
 
-	else
-	{
-		throw new RecordNotFoundException("Record Not Found");
+		else {
+			throw new RecordNotFoundException("Record Not Found");
+
+		}
+		return pagedResultdto;
 	}
 
-	return pagedResultdto;
-	}
-
-	
-	@Override
 	public ResponseDto addFavorite(FavoriteDto favoriteDto) {
 
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- START");
-		
+
 		List<Favorite> favorites = favoriteRepository.findByCustomerId(favoriteDto.getCustomerId());
 		ResponseDto responseDto = new ResponseDto();
-		
+
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- if condition ");
 		if (favorites.isEmpty() || favorites.size() < maxFavorite) {
-			
+
 			Customer customer = customerRepository.findByCustomerId(favoriteDto.getCustomerId());
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- in condition");
 			Favorite favorite = new Favorite();
@@ -112,11 +105,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 			responseDto.setMessage("Favorite Added successfully.");
 			responseDto.setStatus("success");
 			responseDto.setStatusCode(201);
-			
+
 		} else {
-			
+
 			LOGGER.info("FavoriteServiceImpl :: addFavorite -- throwing maxException");
-			throw new MaxFavoriteAccountException("Allowed only "+maxFavorite+" favorite accounts.");
+			throw new MaxFavoriteAccountException("Allowed only " + maxFavorite + " favorite accounts.");
 		}
 
 		LOGGER.info("FavoriteServiceImpl :: addFavorite -- END");

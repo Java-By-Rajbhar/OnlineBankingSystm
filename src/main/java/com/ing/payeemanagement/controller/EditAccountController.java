@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ing.payeemanagement.dto.DeletedResponseDto;
 import com.ing.payeemanagement.dto.FavoriteEditResponseDto;
 import com.ing.payeemanagement.dto.FavoriteRequestDto;
-import com.ing.payeemanagement.exception.RecordNotFoundException;
 import com.ing.payeemanagement.service.EditFavoriteAccountService;
 
 @RestController
@@ -39,6 +38,7 @@ public class EditAccountController {
 	@PutMapping("/accounts")
 	public ResponseEntity<FavoriteEditResponseDto> edit(@RequestBody FavoriteRequestDto favoriteRequestDto)
 	{
+		LOGGER.info("EditAccountController edit");
 		
 		return new ResponseEntity<>(editFavoriteAccountService.edit(favoriteRequestDto),HttpStatus.OK);
 	}
@@ -53,6 +53,7 @@ public class EditAccountController {
 	@DeleteMapping("/accounts/{accountId}")
 	public ResponseEntity<DeletedResponseDto> delete(@PathVariable int accountId)
 	{
+		LOGGER.info("EditAccountController delete");
 		return new ResponseEntity<>(editFavoriteAccountService.delete(accountId),HttpStatus.OK);
 	}
 	

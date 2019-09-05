@@ -38,7 +38,7 @@ public class CustomerLoginController {
 	{
 		LOGGER.info("inside customerLogin method of CustomerLoginController class");
 		CustomerLoginResponse response = customerService.customerLogin(customerRequestdto);
-		return new ResponseEntity<CustomerLoginResponse>(response, HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }
