@@ -12,7 +12,7 @@ import com.ing.payeemanagement.dto.ResponseDto;
  */
 public interface FavoriteService {
 
-	List<FavoriteResponseDTO> getAllFavoriteAccounts(Integer pageNo, Integer pageSize);
+	List<FavoriteResponseDTO> getAllFavoriteAccounts(int customerId, Integer pageNo, Integer pageSize);
 
 	ResponseDto addFavorite(FavoriteDto favoriteDto);
 

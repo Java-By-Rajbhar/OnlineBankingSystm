@@ -1,17 +1,24 @@
 package com.ing.payeemanagement.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+/**
+ * 
+ * @author Shashank
+ *
+ */
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class FavoriteResponseDTO {
+public class FavoriteRequestDto {
 
 	private int accountId;
 	private String accountName;
 	private String iban;
 	private String bankName;
-
+	
+	
 }
+
+

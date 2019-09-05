@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,11 @@ public class FavoriteController {
 	@Autowired
 	private FavoriteService favoriteService;
 
-	@GetMapping("/accounts")
-	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(
-			@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
-		
-		LOGGER.info("FavoriteController :: getAllFavoriteAccounts --");
-		
-		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(pageNo, pageSize);
+	@GetMapping("/accounts/{customerId}")
+	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(@PathVariable int customerId, @RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
+				
+		LOGGER.info("FavoriteController :: getAllFavoriteAccounts --");				
+		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(customerId,pageNo, pageSize);
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
