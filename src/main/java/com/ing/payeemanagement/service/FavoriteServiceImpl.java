@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.ing.payeemanagement.dto.FavoriteDto;
 import com.ing.payeemanagement.dto.FavoriteRequestDto;
-import com.ing.payeemanagement.dto.FavoriteResponseDto;
+import com.ing.payeemanagement.dto.FavoriteResponseDTO;
 import com.ing.payeemanagement.dto.ResponseDto;
 import com.ing.payeemanagement.entity.Customer;
 import com.ing.payeemanagement.entity.Favorite;
@@ -48,7 +48,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public List<FavoriteRequestDto> getAllFavoriteAccounts(int customerId, Integer pageNo, Integer pageSize) {
+	public List<FavoriteResponseDTO> getAllFavoriteAccounts(int customerId, Integer pageNo, Integer pageSize) {
 
 		Customer customer = customerRepository.findByCustomerId(customerId);
 
@@ -58,14 +58,14 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 		List<Favorite> pagedResult = pagedResult1.getContent();
 
-		List<FavoriteRequestDto> pagedResultdto = new ArrayList<>();
+		List<FavoriteResponseDTO> pagedResultdto = new ArrayList<>();
 		if (customer != null) {
 
 			if (customer.getCustomerId() == customerId) {
 				
 				pagedResult.forEach(favorite->{
 					if (favorite.getStatus() == 1) {
-						FavoriteResponseDto favoriteResponseDTO = new FavoriteResponseDto();
+						FavoriteResponseDTO favoriteResponseDTO = new FavoriteResponseDTO();
 						favoriteResponseDTO.setAccountId(favorite.getFavoriteId());
 						favoriteResponseDTO.setAccountName(favorite.getName());
 						favoriteResponseDTO.setBankName(favorite.getBank());

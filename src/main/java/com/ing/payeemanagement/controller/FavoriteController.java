@@ -43,11 +43,11 @@ public class FavoriteController {
 	 */
 
 	@GetMapping("/accounts/{customerId}")
-	public ResponseEntity<List<FavoriteRequestDto>> getAllFavoriteAccounts(@PathVariable int customerId,
+	public ResponseEntity<List<FavoriteResponseDTO>> getAllFavoriteAccounts(@PathVariable int customerId,
 			@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "5") Integer pageSize) {
 
 		LOGGER.info("inside getAllFavoriteAccounts method of FavoriteController class");
-		List<FavoriteRequestDto> list = favoriteService.getAllFavoriteAccounts(customerId, pageNo, pageSize);
+		List<FavoriteResponseDTO> list = favoriteService.getAllFavoriteAccounts(customerId, pageNo, pageSize);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
