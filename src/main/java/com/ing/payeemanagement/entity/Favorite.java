@@ -25,7 +25,7 @@ public class Favorite {
 	private String name;
 	private String iban;
 	private String bank;
-	private String status;
+	private int status;
 	private LocalDate createdDate;
 	private LocalDate expiryDate;
 	private int customerId;
