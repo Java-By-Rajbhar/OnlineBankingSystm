@@ -18,5 +18,6 @@ public class CustomerLoginResponse {
 	private int statusCode;
 	private String status;
 	private String customerName;
+	private int customerId;
 
 }
