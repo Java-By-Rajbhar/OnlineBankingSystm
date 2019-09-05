@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class EditFavoriteAccountServiceImplTest {
 		
 		Favorite favorite=new Favorite();
 		favorite.setBank("Nairobi Bank");
-		favorite.setCreatedDate(LocalDate.now());
+		favorite.setCreatedDate(LocalDateTime.now());;
 		favorite.setCustomerId(1234);
 		favorite.setExpiryDate(LocalDate.of(2019, 10, 12));
 		favorite.setFavoriteId(1);
@@ -62,7 +63,7 @@ public class EditFavoriteAccountServiceImplTest {
 	public void testDelete() {
 		Favorite favorite=new Favorite();
 		favorite.setBank("Nairobi Bank");
-		favorite.setCreatedDate(LocalDate.now());
+		favorite.setCreatedDate(LocalDateTime.now());
 		favorite.setCustomerId(1234);
 		favorite.setExpiryDate(LocalDate.of(2019, 10, 12));
 		favorite.setFavoriteId(1);

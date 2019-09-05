@@ -3,6 +3,7 @@ package com.ing.payeemanagement.service;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +41,12 @@ public class FavoriteServiceImplTest {
 		List<Favorite> list = new ArrayList<>();
 		Favorite requestdto = new Favorite();
 		requestdto.setBank("Nairobi");
-		requestdto.setCreatedDate(LocalDate.now());
+		requestdto.setCreatedDate(LocalDateTime.now());
 		requestdto.setCustomerId(1);
 		requestdto.setExpiryDate(LocalDate.now());
 		requestdto.setIban("ES21123478974563");
 		requestdto.setFavoriteId(1);
 		requestdto.setName("Professor");
-		requestdto.setStatus(1);
-		list.add(requestdto);
 
 		Customer customer = new Customer();
 		customer.setCustomerName("Professor");
