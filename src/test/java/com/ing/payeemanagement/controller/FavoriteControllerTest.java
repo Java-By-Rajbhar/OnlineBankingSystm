@@ -1,6 +1,7 @@
 package com.ing.payeemanagement.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ing.payeemanagement.dto.CustomerRequestdto;
+import com.ing.payeemanagement.dto.FavoriteDto;
 import com.ing.payeemanagement.dto.FavoriteResponseDTO;
+import com.ing.payeemanagement.dto.ResponseDto;
 import com.ing.payeemanagement.service.FavoriteService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -66,4 +69,31 @@ public class FavoriteControllerTest {
 		assertEquals("Nairobi", response1.getBody().get(0).getBankName());
 
 	}
+	@Test
+	public void addFavoriteTest() throws JsonProcessingException, Exception
+	{
+		
+		FavoriteDto favoriteDto=new FavoriteDto();
+		favoriteDto.setBank("Nairobi");
+		favoriteDto.setCustomerId(1);
+		favoriteDto.setIban("ES211234567878904567");
+		favoriteDto.setName("Professor");
+		
+		ResponseDto response =new ResponseDto();
+		response.setMessage("Added Succesfully");
+		response.setStatus("Success");
+		response.setStatusCode(201);
+		
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.ALL).content(new ObjectMapper().writeValueAsString(favoriteDto))).andReturn();
+		
+		
+		
+		when(favoriteService.addFavorite(Mockito.any())).thenReturn(response);
+		
+		ResponseEntity<ResponseDto> actual=favoriteController.addFavorite(favoriteDto);
+		assertEquals("Added Succesfully", actual.getBody().getMessage());
+
+	}
+	
 }
